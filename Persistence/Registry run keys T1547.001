@@ -1,0 +1,36 @@
+title: Registry run keys
+id: 2e60e8ae-0bc7-4c12-9a15-3814c2740bfe
+status: Test
+description: detects when the keys are using for persistence
+author: sansan
+tags:
+  - attack.Persistence
+  - attack.T1547.001
+references:
+  - https://www.picussecurity.com/resource/blog/picus-10-critical-mitre-attck-techniques-t1060-registry-run-keys-startup-folder
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection1:
+    - Image|endswith: 'reg.exe'
+  selection2:
+    CommandLine|contains:
+      - 'Software\Microsoft\Windows\CurrentVersion\Run'  
+      - 'Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\Run'
+      - 'Software\Microsoft\Windows NT\CurrentVersion\Winlogon\Userinit'    
+      - 'Software\Microsoft\Windows NT\CurrentVersion\Winlogon\Shell'
+      - 'Software\Microsoft\Windows NT\CurrentVersion\Winlogon\Notify'
+      - 'System\CurrentControlSet\Control\Session Manager'
+      - 'Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders'
+      - 'Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folder'
+      - 'ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp'
+      - 'Microsoft\Windows\Start Menu\Programs\Startup'
+      - 'Control\Session Manager\BootExecute'
+      - 'SOFTWARE\Microsoft\Windows NT\CurrentVersion\IniFileMapping\system.ini\boot'
+      - 'Software\Microsoft\WindowsNT\CurrentVersion\Windows\AppInit_DLLs'
+      - 'SYSTEM\CurrentControlSet\Control\Session Manager\KnownDLLs'
+  condition: selection1 AND  selection2
+falsepositives:
+  - Unknow
+level: critical
