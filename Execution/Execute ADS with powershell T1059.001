@@ -1,0 +1,26 @@
+title: Execute ADS with powershell
+id: 1284a8e9-db21-431a-87bf-017284df3a59
+status: Test
+description: detects when the keys are using for persistence
+author: sansan
+tags:
+  - attack.Execution
+  - attack.T1059.001
+references:
+  - https://atomicredteam.io/execution/T1059.001/#atomic-test-13---ntfs-alternate-data-stream-access
+logsource:
+  category: process_creation
+  product: windows
+  service: powershell
+detection:
+  selection1:
+    CommandLine|contains: 
+      - 'get-content'
+      - 'add-content'
+  selection2:
+    CommandLine|contains: 
+      - '-s'
+  condition: selection1 AND selection2
+falsepositives:
+  - Unknow
+level: medium
