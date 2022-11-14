@@ -1,0 +1,25 @@
+title: Execute a command as a service
+id: 3bebc576-2032-46fd-89ed-7802b68bb383
+status: Experimental
+description: detects when a command is created as a service
+author: sansan
+tags:
+  - attack.Execution
+  - attack.T1569.002
+references:
+  - https://redcanary.com/threat-detection-report/techniques/service-execution/
+  - https://www.ired.team/offensive-security/persistence/t1035-service-execution
+logsource:
+  category: configuration
+  product: windows
+detection:
+  selection1:
+    ServiceFileName|contains: 
+      - 'powershell'
+      - 'cmd.exe'
+      - '.ps1'
+      - '.bat'
+  condition: selection1
+falsepositives:
+  - Unknow
+level: medium
