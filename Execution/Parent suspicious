@@ -1,0 +1,67 @@
+title: Parent suspicious 
+id: ea7ad4c6-0f10-4c0e-b827-397256c0ba05
+description: Detects when an binarie spwaned a process child with relationship suspicious
+status: Experimental
+author: sansan
+references:
+    - https://medium.com/falconforce/falconfriday-e4554e9e6665
+    - https://expel.com/blog/how-to-find-anomalous-process-relationships-threat-hunting/
+tags:
+    - attack.Execution
+    - attack.T1059.001
+    - attack.T1059.003
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection1:
+        ParentImage|endswith: 
+        - mshta.exe 
+        - rundll32.exe 
+        - regsvr32.exe 
+        - services.exe 
+        - winword.exe 
+        - wmiprvse.exe 
+        - powerpnt.exe 
+        - excel.exe 
+        - msaccess.exe 
+        - mspub.exe 
+        - visio.exe 
+        - outlook.exe 
+        - chrome.exe 
+        - firefox.exe 
+        - iexplore.exe 
+        - microsoftedgecp.exe 
+        - MicrosoftEdgeSH.exe 
+        - microsoftedge.exe 
+        - browser.exe 
+        - vivaldi.exe 
+        - safari.exe 
+        - sqlagent.exe 
+        - sqlserver.exe 
+        - sqlservr.exe 
+        - w3wp.exe 
+        - httpd.exe 
+        - nginx.exe 
+        - tomcat 
+        - php-cgi.exe 
+        - jbosssvc.exe 
+        - cmd.exe 
+        - msiexec.exe 
+        - explorer.exe 
+        - splunkd.exe 
+        - windowsupdatebox.exe 
+        - taskeng.exe 
+        - powershell.exe 
+        - wscript.exe 
+        - cab.exe 
+        - java.exe
+    selection2:
+        Image|endswith: 
+        - 'powershell.exe'
+        - 'pwsh.exe'
+        - 'cmd.exe'
+    condition:  selection1 AND selection2
+falsepositives:
+    - Unknow
+level: high
