@@ -1,0 +1,112 @@
+title: schtask_Match_Legitimate_Name_or_Location
+id: 6b450f2a-0391-4460-9470-0d2d00e97f20
+status: Experimental
+description: detects when a attacker create schtasks from location inusuals
+author: sansan
+tags:
+  - attack.Defense_Evasion
+  - attack.T1036.005
+  - attack.Match_Legitimate_Name_or_Location
+references:
+  - https:https://www.picussecurity.com/resource/blog/picus-10-critical-mitre-attck-techniques-t1036-masquerading
+  - https://redcanary.com/threat-detection-report/techniques/match-legitimate-name-or-location/
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection1:
+    Image|endswith:
+      - 'schtasks.exe'   
+    CommandLine|contains:
+      - 'create'   
+  selection2:
+    CommandLine|contains:
+      - '\PerfLogs\'  
+      - 'programdata'
+      - 'system32\microsoft\crypto\rsa\machinekeys'    
+      - 'syswow64\tasks\microsoft\windows\pla\system'
+      - 'debug\wia'
+      - '\tasks'
+      - 'registration\crmlog'
+      - 'system32\com\dmp'
+      - 'system32\fxstmp'
+      - 'system32\spool\drivers\color'
+      - 'system32\spool\printers'
+      - 'system32\spool\servers'
+      - 'syswow64\com\dmp'
+      - 'syswow64\fxstmp'
+      - '\tracing'
+      - '\Users\Public\'
+      - '\Users\Default\'
+      - '\Windows\AppReadiness\'
+      - '\Windows\ServiceState\'
+      - '\Windows\security\'
+      - '\Windows\IdentityCRL\'
+      - '\Windows\Branding\'
+      - '\Windows\csc\'
+      - '\Windows\DigitalLocker\'
+      - '\Windows\en-US\'
+      - '\Windows\wlansvc\'
+      - '\Windows\Prefetch\'
+      - '\Windows\Fonts\'
+      - '\Windows\diagnostics\'
+      - '\Windows\TAPI\'
+      - '\Windows\INF\'
+      - '\Windows\System32\Speech\'
+      - '\windows\tracing\'
+      - '\windows\IME\'
+      - '\Windows\Performance\'
+      - '\windows\intel\'
+      - '\windows\ms\'
+      - '\Windows\dot3svc\'
+      - '\Windows\ServiceProfiles\'
+      - '\Windows\panther\'
+      - '\Windows\RemotePackages\'
+      - '\Windows\OCR\'
+      - '\Windows\appcompat\'
+      - '\Windows\apppatch\'
+      - '\Windows\addins\'
+      - '\Windows\Setup\'
+      - '\Windows\Help\'
+      - '\Windows\SKB\'
+      - '\Windows\Vss\'
+      - '\Windows\Web\'
+      - '\Windows\RemotePackages\'
+      - '\Windows\servicing\'
+      - '\Windows\CbsTemp\'
+      - '\Windows\Logs\'
+      - '\Windows\WaaS\'
+      - '\Windows\twain_32\'
+      - '\Windows\ShellExperiences\'
+      - '\Windows\ShellComponents\'
+      - '\Windows\PLA\'
+      - '\Windows\Migration\'
+      - '\Windows\debug\'
+      - '\Windows\Cursors\'
+      - '\Windows\Containers\'
+      - '\Windows\Boot\'
+      - '\Windows\bcastdvr\'
+      - '\Windows\assembly\'
+      - '\Windows\TextInput\'
+      - '\Windows\security\'
+      - '\Windows\schemas\'
+      - '\Windows\SchCache\'
+      - '\Windows\Resources\'
+      - '\Windows\rescache\'
+      - '\Windows\Provisioning\'
+      - '\Windows\PrintDialog\'
+      - '\Windows\PolicyDefinitions\'
+      - '\Windows\media\'
+      - '\Windows\Globalization\'
+      - '\Windows\L2Schemas\'
+      - '\Windows\LiveKernelReports\'
+      - '\Windows\ModemLogs\'
+      - '\Windows\ImmersiveControlPanel\'
+      - 'Recycle.Bin\'
+      - '\temp\'  
+      - 'Downloads'
+      - 'Appdata'
+  condition: selection1 AND selection2
+falsepositives:
+  - Unknow
+level: medium
