@@ -1,0 +1,40 @@
+title: Schtask Parameters suspicious T1036.004, T1053.005
+id: 2f4d336f-6dad-4568-8b39-4ab428e29d17
+description: Detects when an attacker attempt create a schtask with parameters suspicious 
+status: Experimental
+author: sansan
+references:
+    - https: https://www.picussecurity.com/resource/blog/picus-10-critical-mitre-attck-techniques-t1036-masquerading
+    - https://medium.com/picus-security/how-to-simulate-and-detect-mitre-att-ck-t1053-scheduled-task-job-tachnique-a-real-command-used-by-87e7c122ef1e
+tags:
+    - attack.Defense_Evasion
+    - attack.Persistence
+    - attack.Masquerade_Task_or_Service
+    - attack.T1036.004
+    - attack.T1053.005
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection1:
+        Image|endswith: 
+        - 'schtasks.exe'
+    selection2:
+        CommandLine|contains|all: 
+        - 'create'
+        CommandLine|contains:
+        - 'powershell'
+        - 'pwsh'
+        - 'bypass'
+        - 'cmd.exe'
+        - 'cmd /c'
+        - '.ps1'
+        - '.bat'
+        - 'http'
+        - 'regsvr32'
+        - 'rundll32'
+        - 'mshta'
+    condition:  selection1 AND selection2
+falsepositives:
+    - execution of scheduled task for updates or task management
+level: medium
