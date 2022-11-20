@@ -1,0 +1,23 @@
+title: Clear Windows event log T1070.001
+id: 374c009c-82d5-47ba-9b9a-7df4f8f2f50e
+description: Detect when windows event log security or system is cleared
+status: Stable
+author: sansan
+references:
+    - https://zerodollarsoc.com/attack-defence-catalogue/techniques/t1070-001-clear-windows-event-logs-defense-evasion/
+    - https://github.com/redcanaryco/atomic-red-team/blob/master/atomics/T1070.001/T1070.001.md
+tags:
+    - attack.Defense_Evasion
+    - attack.T1070.001
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        EventID: 
+        - '1102'
+        - '104'
+    condition: selection
+falsepositives:
+    - Unlikely
+level: medium
