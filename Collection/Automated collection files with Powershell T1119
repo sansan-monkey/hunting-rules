@@ -1,0 +1,71 @@
+title: Automated collection files with Powershell
+id: dc609320-2b91-4f03-9b58-f071fd380ee5
+status: Experimental
+description: detects when an attacker automated collect files of interest
+author: sansan
+tags:
+  - attack.Collection
+  - attack.T1119
+  - attack.T1005
+  - attack.T1002
+  - attack.T1056.001
+references:
+  - https://atomicredteam.io/collection/T1119/#atomic-test-2---automated-collection-powershell
+logsource:
+  category: process_creation
+  product: windows
+  service: powershell
+detection:
+  selection1:
+    CommandLine|contains: 
+      - 'ChildItem'
+      - 'gci'
+      - 'ls'
+      - 'dir'
+    CommandLine|contains|all:
+      - 'include'
+  selection2:
+    CommandLine|contains: 
+      - '.xlsm'
+      - '.doc'
+      - '.xps'
+      - '.xls'
+      - '.ppt'
+      - '.pps'
+      - '.wps'
+      - '.wpd'
+      - '.ods'
+      - '.odt'
+      - '.lwp'
+      - '.jtd'
+      - '.pdf'
+      - '.zip'
+      - '.rar'
+      - '.docx'
+      - '.url'
+      - '.xlsx'
+      - '.pptx'
+      - '.ppsx'
+      - '.pst'
+      - '.ost'
+      - '.pst'
+      - '.ost'
+      - 'psw'
+      - 'pass'
+      - 'login'
+      - 'admin'
+      - 'sifr'
+      - 'sifer'
+      - 'vpn'
+      - '.jpg'
+      - '.txt'
+      - '.lnk'
+      - '.xlt'
+      - '.pot'
+      - '.dot'
+      - '.pub'
+      - '.rft'
+  condition: selection1 AND selection2
+falsepositives:
+  - Unknow
+level: High 
