@@ -25,10 +25,10 @@ detection:
       - 'Clear-EventLog'
   selection4:
     CommandLine|contains:
-      - 'security'
-      - 'system'
-      - 'application'
-      - 'setup'
+      - 'Security'
+      - 'System'
+      - 'Application'
+      - 'Setup'
       - 'Sysmon'
       - 'Microsoft-Windows-PowerShell/Operational'
       - 'Defender'
