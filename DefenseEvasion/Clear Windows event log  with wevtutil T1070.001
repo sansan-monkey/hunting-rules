@@ -16,7 +16,7 @@ detection:
   selection1:
     - Image|endswith: 'wevtutil.exe'
     - OriginalFileName: 'wevtutil.exe'
-    - CommandLine: 'wevtutil'
+    - CommandLine|contains: 'wevtutil'
   selection2:
     CommandLine|contains:
       - 'clear-log'
