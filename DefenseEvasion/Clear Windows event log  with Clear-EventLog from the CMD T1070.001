@@ -1,7 +1,7 @@
 title: Clear Windows event log  with Clear-EventLog from the CMD T1070.001
 id: c5e1c3bd-fd35-4668-b96f-a7085d85f145
 description: Detect when windows event log is cleared
-status: Test
+status: Experimental
 author: sansan
 references:
     - https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/clear-eventlog?view=powershell-5.1
