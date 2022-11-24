@@ -1,6 +1,6 @@
 title: Registry run keys
 id: 2e60e8ae-0bc7-4c12-9a15-3814c2740bfe
-status: Test
+status: Experimental
 description: detects when the keys are using for persistence
 author: sansan
 tags:
