@@ -1,7 +1,7 @@
 title: Clear Windows event log  with wevtutil T1070.001
 id: 806db121-0534-4520-b977-61df131b8ce2
 description: Detect when windows event log is cleared
-status: Test
+status: Experimental
 author: sansan
 references:
     - https://zerodollarsoc.com/attack-defence-catalogue/techniques/t1070-001-clear-windows-event-logs-defense-evasion/
