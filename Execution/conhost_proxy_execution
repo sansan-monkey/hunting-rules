@@ -1,7 +1,7 @@
 title: conhost_proxy_execution
 id: 3180ea04-4c06-11ed-bdc3-0242ac120002
 description: Detects when an attacker tries evade relationship parente-child
-status: stable
+status: Experimental
 author: sansan
 references:
     - https://twitter.com/Wietze/status/1511397781159751680
