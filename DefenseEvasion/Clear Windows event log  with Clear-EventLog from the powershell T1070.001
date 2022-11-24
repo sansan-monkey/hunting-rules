@@ -1,0 +1,35 @@
+title: Clear Windows event log  with Clear-EventLog from the powershell T1070.001
+id: c5ea8127-d04a-4e02-a3e5-c9fddb75336b
+status: Experimental
+description: Detect when windows event log is cleared
+author: sansan
+tags:
+    - attack.Defense_Evasion
+    - attack.T1070.001
+references:
+  - https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/clear-eventlog?view=powershell-5.1
+logsource:
+  category: process_creation
+  product: windows
+  service: powershell
+detection:
+  selection1:
+    CommandLine|contains: 
+      - 'Clear-EventLog'
+  selection2:
+    CommandLine|contains: 
+      - 'Security'
+      - 'System'
+      - 'Application'
+      - 'Setup'
+      - 'Sysmon'
+      - 'Microsoft-Windows-PowerShell/Operational'
+      - 'Defender'
+      - 'WMI'
+      - 'TaskScheduler'
+      - 'WinRM'
+      - 'TerminalServices'
+  condition: selection1 AND selection2
+falsepositives:
+  - Unknow
+level: medium
