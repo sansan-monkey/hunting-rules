@@ -1,6 +1,6 @@
 title: sharpwsus_hackTool
 id:25f40436-8d9a-48db-9ef2-b2ea3cd25690
-status:stable
+status: Experimental
 description:detects malicious activity when an attacker utilizes the tool sharpwsus via PE information of command line parameters
 author:sansan
 tags:
