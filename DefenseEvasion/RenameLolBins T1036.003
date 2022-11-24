@@ -1,6 +1,6 @@
 title: Rename_lolbins
 id: 55070951-f145-428a-9f3b-6efd6b16720b
-status: stable
+status: Experimental
 description: detects  when a attacker  trying renamed, copied lolbins for purposes suspicious
 author: 'sansan'
 references: 
