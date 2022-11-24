@@ -1,6 +1,6 @@
 title: Execute ADS with powershell
 id: 1284a8e9-db21-431a-87bf-017284df3a59
-status: Test
+status: Experimental
 description: detects when the keys are using for persistence
 author: sansan
 tags:
