@@ -1,4 +1,4 @@
-title: Malicious CMDLets t1059.001
+title: Malicious CMDLets T1059.001
 id: 9d46f1a2-ffc1-473e-9785-f397cf2601ca
 status: Experimental
 description: detects when malicious cmdlets are using
@@ -15,8 +15,7 @@ logsource:
     service: powershell
 detection:
     selection1:
-    message:
-       CommandLine|contains:
+       message|contains:
          - Invoke-mimikatz 
          - Invoke-NinjaCopy 
          - Get-ModifiablePath 
