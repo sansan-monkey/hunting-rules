@@ -13,6 +13,7 @@ tags:
 logsource:
     category: process_creation
     product: windows
+    service: powershell
 detection:
     selection1:
        CommandLine|contains:
