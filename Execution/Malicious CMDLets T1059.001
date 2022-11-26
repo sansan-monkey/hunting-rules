@@ -161,6 +161,7 @@ detection:
          - Invoke-SMBScanner
          - Invoke-MalDoc
          - Invoke-BloodHound
+         - Invoke-AppPathBypass
     condition: selection1
 falsepositives:
     - Unlikely
