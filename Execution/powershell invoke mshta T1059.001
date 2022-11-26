@@ -1,0 +1,29 @@
+title: powershell invoke mshta T1059.001
+id: 205e522b-7f1b-4855-a10d-be975c820822
+description: Detect when powershell invoke mshta to download payload.
+status: Experimental
+author: sansan
+references:
+    - https://lolbas-project.github.io/lolbas/Binaries/Mshta/
+    - https://www.ired.team/offensive-security/code-execution/t1170-mshta-code-execution
+tags:
+    - attack.Execution
+    - attack.T1059.001
+logsource:
+    product: windows
+    category: process_creation
+detection:
+  selection1:
+    - Image|endswith: 'mshta.exe'
+    - OriginalFileName: 'MSHTA.exe'
+    - CommandLine|contains: 'mshta'
+  selection2:
+    CommandLine|contains:
+      - 'javascript'
+      - 'vbscript'
+      - 'jscript'
+      - 'about'
+  condition: selection1 AND selection2
+falsepositives:
+    - Unknown
+level: medium
