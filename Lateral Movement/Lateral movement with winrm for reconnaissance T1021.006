@@ -8,8 +8,8 @@ references:
     - https://redcanary.com/blog/lateral-movement-winrm-wmi/
     - https://www.ired.team/offensive-security/lateral-movement/t1028-winrm-for-lateral-movement
 tags:
-    - attack.Execution
-    - attack.T1059.001
+    - attack.LateralMovement
+    - attack.T1021.006
 logsource:
     product: windows
     category: process_creation
