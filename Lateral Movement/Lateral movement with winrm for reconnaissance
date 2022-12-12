@@ -1,0 +1,37 @@
+title: Lateral movement with winrm for reconnaissance
+id: 14d8d5d9-b2a1-4302-928a-fc30d5a5450e
+description: Detect when winrm is used for lateral movement and once the attacker has an foothold, perform reconnaissance.
+status: Experimental
+author: sansan
+references:
+    - https://blogs.jpcert.or.jp/en/2016/01/windows-commands-abused-by-attackers.html
+    - https://redcanary.com/blog/lateral-movement-winrm-wmi/
+    - https://www.ired.team/offensive-security/lateral-movement/t1028-winrm-for-lateral-movement
+tags:
+    - attack.Execution
+    - attack.T1059.001
+logsource:
+    product: windows
+    category: process_creation
+detection:
+  selection1:
+    - ParentImage|endswith: 'wsmprovhost.exe'
+  selection2:
+    Image|contains:
+      - dir
+      - ping
+      - type
+      - net1
+      - net 
+      - tasklist
+      - ver
+      - ipconfig
+      - systeminfo
+      - netstat
+      - whoami
+      - qprocess
+      - query    
+  condition: selection1 AND selection2
+falsepositives:
+    - Unknown
+level: High
