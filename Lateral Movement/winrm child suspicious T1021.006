@@ -1,4 +1,4 @@
-title: Lateral movement with winrm, child suspicious T1021.006
+title: Lateral movement with winrm child suspicious T1021.006
 id: 98b31fc3-3525-46e3-9f04-006315eaa690
 description: Detect when winrm is used for lateral movement and spawn child suspicious.
 status: Experimental
