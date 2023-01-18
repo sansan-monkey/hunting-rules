@@ -1,0 +1,25 @@
+title: Detect winrs for lateral movement
+id: caf51af9-4f80-416f-a894-3bd45e2fa07c
+description: detect when WinRs is being used in a suspicious way for lateral movement
+status: Experimental
+author: sansan
+references:
+    - https://www.ired.team/offensive-security/lateral-movement/winrs-for-lateral-movement
+    - https://pentestlab.blog/2018/05/15/lateral-movement-winrm/#:~:text=WinRM%20stands%20for%20Windows%20Remote,by%20default%20and%20Basic%20authentication.
+tags:
+    - attack.LateralMovement
+    - attack.T1021.006
+logsource:
+    product: windows
+    category: process_creation
+detection:
+  selection1:
+    - ParentImage|contains: 'winrshost'
+  selection2:
+    Image|contains:
+      - 'cmd'
+      - 'powershell'
+  condition: selection1 AND selection2
+falsepositives:
+    - Unknown
+level: High
