@@ -5,7 +5,7 @@ status: Experimental
 author: sansan
 references:
     - https://www.ired.team/offensive-security/lateral-movement/winrs-for-lateral-movement
-    - https://pentestlab.blog/2018/05/15/lateral-movement-winrm/#:~:text=WinRM%20stands%20for%20Windows%20Remote,by%20default%20and%20Basic%20authentication.
+    - https://pentestlab.blog/2018/05/15/lateral-movement-winrm/
 tags:
     - attack.LateralMovement
     - attack.T1021.006
