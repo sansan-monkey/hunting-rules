@@ -1,0 +1,28 @@
+title: AMSI Bypass - AMSI InitFailedPermalink T1562.001
+id: d4d33c45-fd3a-45d8-9534-8bf468921f36
+description: Detect when an adversary execute a command in powershell for evade the AMSI (Antimalware Scripting Interface)
+status: Experimental
+author: sansan
+references:
+    - https://www.mdsec.co.uk/2018/06/exploring-powershell-amsi-and-logging-evasion/
+    - https://twitter.com/cyb3rops/status/1588574518057979905?s=20&t=A7hh93ONM7ni1Rj1jO5OaA
+tags:
+    - attack.Defense_Evasion
+    - attack.T1562.001
+    - attack.Impair_defense
+    - attack.Disable or modify tools
+logsource:
+    category: process_creation
+    product: windows
+    service: powershell
+detection:
+    selection:
+       ScriptBlockText|contains:
+         - 'System.Management.Automation.AmsiUtils'
+         - 'amsiInitFailed'
+         - 'SetValue'
+         - 'true'
+    condition: selection
+falsepositives:
+    - Unknown
+level: High
