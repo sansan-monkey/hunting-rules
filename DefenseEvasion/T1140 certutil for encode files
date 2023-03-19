@@ -1,0 +1,27 @@
+title: Detect the use of certutil for encode/decode a file
+id: 49892d8a-72ff-418a-97e9-68b859390cbe
+description: Adversaries may use certutil for encodede files to hide artifacts of an intrusion from analysis
+status: Experimental
+author: sansan
+references:
+    - https://atomicredteam.io/defense-evasion/T1140/
+    - https://lolbas-project.github.io/lolbas/Binaries/Certutil/
+tags:
+    - attack.Defense_Evasion
+    - attack.T1140
+logsource:
+    product: windows
+    category: process_creation
+detection:
+  selection1:
+    - Image|endswith: 'certutil.exe'
+    - OriginalFileName: 'certutil.exe'
+    - CommandLine|contains: 'certutil'
+  selection2:
+    CommandLine|contains:
+      - 'encode'
+      - 'decode'
+  condition: selection1 AND selection2
+falsepositives:
+    - Unknown
+level: medium
