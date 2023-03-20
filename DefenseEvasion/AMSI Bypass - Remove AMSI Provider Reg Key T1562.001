@@ -1,0 +1,29 @@
+title: AMSI Bypass - Remove AMSI Provider Reg Key T1562.001
+id: 0c3d9a88-9f0e-425f-94ba-bff1eef44945
+description: Detect when an attacker remove registry key AMSI to disable inspection, telemtry EventID 4104, 4103, 800 powershell
+status: Experimental
+author: sansan
+references:
+    - https
+tags:
+    - attack.Defense_Evasion
+    - attack.T1562.001
+    - attack.Impair_defense
+    - attack.Disable or modify tools
+logsource:
+    category: process_creation
+    product: windows
+    service: powershell
+detection:
+    selection1:
+       ScriptBlockText|contains|all:
+         - 'Remove-Item'
+         - 'HKLM:\SOFTWARE\Microsoft\AMSI\Providers\{2781761E-28E0-4109-99FE-B9D127C57AFE}'
+    selection2:
+       CommandLine|contains|all:
+         - 'Remove-Item'
+         - 'HKLM:\SOFTWARE\Microsoft\AMSI\Providers\{2781761E-28E0-4109-99FE-B9D127C57AFE}'
+    condition: selection1 OR selection2 
+falsepositives:
+    - Unknown
+level: High
