@@ -1,1 +1,48 @@
-
+title: Network Share Discovery with powershell
+id: 7a447a0e-8aad-401d-9fbe-f95cfba81fb8
+description: Detect when a adversary attempt look for folders and drives shared on remote systems as a means of identifying sources of information to gather as a precursor for Collection and to identify potential systems of interest for Lateral Movement.
+status: Experimental
+author: sansan
+references:
+    - https://github.com/redcanaryco/atomic-red-team/blob/master/atomics/T1135/T1135.md
+    - https://attack.mitre.org/techniques/T1135/
+tags:
+    - attack.Discovery
+    - attack.T1135
+    - attack.Network Share Discovery
+logsource:
+    category: process_creation
+    product: windows
+    service: powershell
+detection:
+    selection1:
+       EventID: "4103"
+       Message|contains:
+         - 'Test-Connection'
+         - 'Get-NetShare'
+         - 'Find-DomainShare'
+         - 'get-smbshare'
+         - 'CheckShareAccess'
+         - 'shareenumeration'
+    selection2:
+       EventID: "4104"
+       ScriptBlockTest|contains:
+         - 'Test-Connection'
+         - 'Get-NetShare'
+         - 'Find-DomainShare'
+         - 'get-smbshare'
+         - 'CheckShareAccess'
+         - 'shareenumeration'
+    selection3:
+       EventID: "800"
+       Message|contains:
+         - 'Test-Connection'
+         - 'Get-NetShare'
+         - 'Find-DomainShare'
+         - 'get-smbshare'
+         - 'CheckShareAccess'
+         - 'shareenumeration'
+    condition: selection1 OR selection2 OR selection3
+falsepositives:
+    - Unknown
+level: medium
