@@ -13,12 +13,12 @@ logsource:
     category: process_creation
     product: windows
 detection:
-    selection1:
-       Process_Command_Line|contains:
+    selection_1:
+       CommandLine|contains:
          - 'copy'
          - 'move'
-    selection2:
-        Process_Command_Line|contains:
+    selection_2:
+        CommandLine|contains:
          - 'AppInstaller.exe'
          - 'Aspnet_Compiler.exe'
          - 'At.exe'
@@ -189,17 +189,17 @@ detection:
          - UtilityFunctions.ps1
          - winrm.vbs
          - Pester.bat
-    selection3:
-    - Process_Command_Line|contains|all:
+    selectioncmd:
+    - CommandLine|contains|all:
          - 'copy'
          - 'cmd.exe'
-    - Process_Command_Line|contains|all:
+    - CommandLine|contains|all:
          - 'move'
          - 'cmd.exe'
     filter:
-        Process_Command_Line|contains:
+        CommandLine|contains:
          - 'remove'
-    condition: (selection1 AND selection2) OR selection3 AND NOT filter
+    condition: (all of selection_* OR selectioncmd) AND NOT filter
 falsepositives:
     - Unknow
-level: high
+level: medium
