@@ -1,0 +1,25 @@
+title: Delete data overwritten with Zeros a File via fsutil.exe
+id: 547a6c26-1500-4bdf-bf2a-4f5cec0681f6
+description: Detect when the built-in tool fsutil is used to prevent the malicious executable from being recovered by overwriting the data with zeros
+author: sansan
+status: stable
+tags:
+- attack.impact
+- attack.t1485
+references:
+- https://news.sophos.com/en-us/2020/04/24/lockbit-ransomware-borrows-tricks-to-keep-up-with-revil-and-maze/
+- https://www.cybereason.com/blog/threat-analysis-report-lockbit-2.0-all-paths-lead-to-ransom
+- https://lolbas-project.github.io/lolbas/Binaries/fsutil/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection1:
+  - Image|endswith: 'fsutil.exe'
+  - OriginalFileName: 'fsutil.exe'
+  selection2:
+    CommandLine|contains: 'setZeroData'
+  condition: all of selection*
+falsepositives:
+- Unknow
+level: medium
