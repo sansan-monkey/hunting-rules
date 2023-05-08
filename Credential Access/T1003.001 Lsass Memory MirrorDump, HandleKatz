@@ -1,0 +1,25 @@
+title: T1003.001 Lsass Memory MirrorDump, HandleKatz
+id: 
+description: Detect when an attacker uses a dynamically compiled LSA plugin to grab an lsass handle and API hooking for capturing the dump in memory
+status: Experimental
+author: 'sansan'
+references: 
+    - https://github.com/CCob/MirrorDump
+    - https://github.com/codewhitesec/HandleKatz
+    - https://www.socinvestigation.com/os-credential-dumping-lsass-memory-vs-windows-logs/
+tags:
+    - attack.credential_access
+    - attack.t1003.001
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection1:
+    EventID: 10
+    SourceImage|endswith: 'lsass.exe'
+  selection2:
+    GrantedAccess: '0x40'
+  condition: all of selection* 
+falsepositives:
+  - Unknow
+level: High
