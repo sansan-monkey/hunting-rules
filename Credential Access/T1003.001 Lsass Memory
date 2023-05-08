@@ -1,0 +1,34 @@
+title: T1003.001 Lsass Memory
+id: 36265172-e81e-49e5-9eba-f15fbdcd7a33
+description: Detect when lsass process is accesses with access mask suspicious
+status: Experimental
+author: 'sansan'
+references: 
+    - https://redcanary.com/threat-detection-report/techniques/lsass-memory/
+    - https://www.deepinstinct.com/blog/lsass-memory-dumps-are-stealthier-than-ever-before
+    - https://www.socinvestigation.com/os-credential-dumping-lsass-memory-vs-windows-logs/
+    - https://www.ired.team/offensive-security/credential-access-and-credential-dumping/dump-credentials-from-lsass-process-without-mimikatz
+tags:
+    - attack.credential_access
+    - attack.t1003.001
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection1:
+    EventID: 10
+    TargetImage|endswith: 'lsass.exe'
+  selection2:
+    GrantedAccess:
+      - '0x1010'
+      - '0x1FFFFF'
+      - '0x1410'
+  filter:
+    SourceImage:
+      - 'C:\WINDOWS\system32\csrss.exe'
+      - 'C:\WINDOWS\system32\wininit.exe'
+      - 'C:\WINDOWS\Sysmon64.exe'
+  condition: all of selection* AND NOT filter
+falsepositives:
+  - Unknow
+level: High
