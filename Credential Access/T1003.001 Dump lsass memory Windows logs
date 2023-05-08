@@ -1,0 +1,30 @@
+title: T1003.001 Dump lsass memory Windows logs
+id: d7463436-d588-4d17-a84e-1b5923a89d51
+status: experimental
+description: detects when suspicious process dump the lsass memory
+author: 'sansan'
+references: 
+    - https://redcanary.com/threat-detection-report/techniques/lsass-memory/
+    - https://www.deepinstinct.com/blog/lsass-memory-dumps-are-stealthier-than-ever-before
+    - https://www.socinvestigation.com/os-credential-dumping-lsass-memory-vs-windows-logs/
+    - https://www.ired.team/offensive-security/credential-access-and-credential-dumping/dump-credentials-from-lsass-process-without-mimikatz
+tags:
+    - attack.Credential Access
+    - attack.t1003.001
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection1:
+       EventID: 4656
+       Object_Name|endswith:
+         - 'lsass.exe'
+    selection2:
+        Access_Mask|contains:
+          - '0x1fffff'
+          - '0x1410'
+          - '0x1010'
+    condition: all of selection*
+falsepositives:
+    - Unknow
+level: High
