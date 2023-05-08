@@ -1,0 +1,25 @@
+title: T1047 WMI list remote services 
+id: c2f1496c-7cbf-450a-aeda-4ba21a1f7e34
+status: Experimental
+description: detects when wmic is executed for create a new process
+author: sansan
+tags:
+  - attack.execution
+  - attack.discovery
+references:
+  - https://redcanary.com/threat-detection-report/techniques/windows-management-instrumentation/
+  - https://atomicredteam.io/execution/T1047/#atomic-test-5---wmi-execute-local-process
+  - https://dmcxblue.gitbook.io/red-team-notes-2-0/red-team-techniques/execution/t1047-windows-management-instrumentation
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    CommandLine|contains|all:
+      - 'wmic'
+      - 'node'
+      - 'service'     
+  condition: selection
+falsepositives:
+  - Unlikely
+level: High
