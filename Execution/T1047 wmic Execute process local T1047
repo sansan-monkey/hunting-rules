@@ -6,18 +6,20 @@ author: sansan
 tags:
   - attack.Execution
 references:
-  - 
+  - https://redcanary.com/threat-detection-report/techniques/windows-management-instrumentation/
+  - https://atomicredteam.io/execution/T1047/#atomic-test-5---wmi-execute-local-process
+  - https://dmcxblue.gitbook.io/red-team-notes-2-0/red-team-techniques/execution/t1047-windows-management-instrumentation
 logsource:
   category: process_creation
   product: windows
 detection:
-  selection1:
+  selection:
     CommandLine|contains|all:
       - 'wmic'
       - 'process'
       - 'call'
       - 'create'      
-  condition: selection1 
+  condition: selection
 falsepositives:
   - Unlikely
 level: High
