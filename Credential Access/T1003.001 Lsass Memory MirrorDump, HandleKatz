@@ -1,5 +1,5 @@
 title: T1003.001 Lsass Memory MirrorDump, HandleKatz
-id: 
+id: 3a24a0f0-d620-4f7b-98a8-e2eaae85f0a3
 description: Detect when an attacker uses a dynamically compiled LSA plugin to grab an lsass handle and API hooking for capturing the dump in memory
 status: Experimental
 author: 'sansan'
