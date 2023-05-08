@@ -13,13 +13,13 @@ logsource:
   category: configuration
   product: windows
 detection:
-  selection1:
+  selection:
     ServiceFileName|contains: 
       - 'powershell'
       - 'cmd.exe'
       - '.ps1'
       - '.bat'
-  condition: selection1
+  condition: selection
 falsepositives:
   - Unknow
 level: medium
