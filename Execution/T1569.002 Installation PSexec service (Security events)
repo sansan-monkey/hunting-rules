@@ -1,4 +1,4 @@
-title: T1569.002 Installation PSexec service
+title: T1569.002 Installation PSexec service (Security events)
 status: experimental
 description: detect when PSexec is installe how service
 author: sansan
