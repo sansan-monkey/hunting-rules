@@ -1,0 +1,21 @@
+title: T1569.002 Installation PSexec service
+status: experimental
+description: detect when PSexec is installe how service
+author: sansan
+references: 
+    - https://www.ired.team/offensive-security/lateral-movement/lateral-movement-with-psexec
+    - https://atomicredteam.io/execution/T1569.002/
+tags:
+    - attack.attack.execution #TA0002
+    - attack.attack.attack.t1569.002 #System Services: Service Execution
+logsource:
+    service: security
+    product: windows
+detection:
+    selection:
+        EventID: 4697
+        ServiceName|contains: 'PSEXESVC'
+    condition: selection
+falsepositives:
+    - Events of the sysadmin
+level: High
