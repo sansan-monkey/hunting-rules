@@ -1,0 +1,28 @@
+title: Detect the use of ntprint for execute a custom dll leverage search order hijacking technique
+id: 9a7213c0-e503-4fcf-b82b-f83d07783f1b
+description: This technique abuses the legitimate, Microsoft-signed ntprint.exe as a living-off-the-land loader by copying it out of C:\Windows\System32 into a user-controlled directory and launching it with the the next command-line PSetupElevatedLegacyPrintDriverInstallW, which causes the process to attempt to load ntprint.dll; due to Windows DLL search behavior, placing a malicious ntprint.dll in the same directory results in that DLL being loaded alongside the trusted binary, providing code execution inside a seemingly benign Windows component and blending activity under a signed process name (a classic DLL sideloading/search-order hijack pattern)
+status: Experimental
+author: sansan
+references:
+    - https://www.hexacorn.com/blog/2025/10/06/ntprint-exe-lolbin/
+tags:
+    - attack.Defense_Evasion
+    - attack.T1574.001
+logsource:
+    product: windows
+    category: process_creation
+detection:
+  selection_name:
+    - Image|endswith: '\ntprint.exe'
+    - OriginalFileName: 'ntprint.exe'
+  selection_command:
+    CommandLine|contains:
+      - 'PSetupElevatedLegacyPrintDriverInstallW'
+  filter_legit_paths:
+    Image|startswith:
+      - 'C:\Windows\System32\'
+      - 'C:\Windows\SysWOW64\'
+  condition: all of selection* and not filter_legit_paths
+falsepositives:
+    - Unknown
+level: medium
